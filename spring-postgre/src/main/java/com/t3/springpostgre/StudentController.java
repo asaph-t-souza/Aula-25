@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller// indica que a classe é um controller
@@ -46,8 +47,8 @@ public class StudentController {
 
     //mapeamos a URL "/students" para o template studentList.html
     @GetMapping("/students")
-    public String getAllStudents(Model model){
-        model.addAttribute("students", repository.findAll(Sort.by("course")));
+    public String getAllStudents(Model model, @RequestParam(value= "sort", defaultValue = "ra") String sort){
+        model.addAttribute("students", repository.findAll(Sort.by(sort)));
         return "studentList";
     }
 
