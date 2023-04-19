@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+    <header th:fragment="my-header">
+        <h1>Students Manager Admin</h1>
+        <div>
+            <a href="#" th:href="@{/}">Index</a>
+            <a th:href="@{/students}">Students List</a>
+            <a th:href="@{/students/add}">Create Student</a>
+        </div>
+    </header>
+
+    <footer th:fragment="my-footer">
+        <hr/>
+        <p>Desenvolvido pela Turma 3 de Java</p>
+    </footer>
+</body>
+</html>

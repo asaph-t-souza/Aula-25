@@ -2,25 +2,25 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head> 
     <title>Add or Edit a Student</title>
-    <link th:href="@{/style.css}" rel="stylesheet" />
 </head>
 <body>
-    <div>
-        <a href="#" th:href="@{/}">Index</a>
-        <a th:href="@{/students}">Students List</a>
-        <a th:href="@{/students/add}">Create Student</a>
-    </div> 
+    <div th:replace="~{myFragment :: my-header}"></div>
 
     <div>
-        <h2>Add or Edit a Student</h2>
+        <h2 th:text="${title2}">Add or Edit a Student</h2>
         <form th:object="${student}" th:action="@{/students/save}" method="post">
             <input type="hidden" th:field="*{ra}" />
             <label>First Name:</label> <input type="text" th:field="*{firstName}" />
             <label>Last Name:</label> <input type="text" th:field="*{lastName}" />
             <label>Course:</label> <input type="text" th:field="*{course}" />
-
+            <label>Period:</label>
+            <select th:field="*{period}">
+                <option th:each="periodOption : ${periodOptions}" th:value="${periodOption}" th:text="${periodOption}"></option>
+            </select>
             <button type="submit">Save</button>
         </form>
     </div>
+
+    <div th:replace="~{myFragment :: my-footer}"></div>
 </body>
 </html>

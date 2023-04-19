@@ -15,16 +15,18 @@ public class Student {
     private String firstName;
     private String lastName;
     private String course;
+    private Period period;
 
     //Necessario para o JPA trabalhar com o banco
     public Student() {
     }
 
     //Ignora o ra pois ele é gerado automaticamente
-    public Student(String firstName, String lastName, String course) {
+    public Student(String firstName, String lastName, String course, Period period) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.course = course;
+        this.period = period;
     }
 
     @Override
@@ -64,8 +66,12 @@ public class Student {
         this.course = course;
     }
 
-    
+    public Period getPeriod() {
+        return period;
+    }
 
-    
-    
+    public void setPeriod(Period period) {
+        this.period = period;
+    }
+ 
 }

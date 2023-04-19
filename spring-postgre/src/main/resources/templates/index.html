@@ -4,10 +4,8 @@
     <title>Index</title>
 </head>
 <body>
-    <div>
-        <a href="#" th:href="@{/}">Index</a>
-        <a th:href="@{/students}">Students List</a>
-        <a th:href="@{/students/add}">Create Student</a>
-    </div> 
+    <div th:replace="~{myFragment :: my-header}"></div>
+
+    <div th:replace="~{myFragment :: my-footer}"></div>
 </body>
 </html>
