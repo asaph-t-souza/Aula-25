@@ -3,6 +3,8 @@ package com.t3.springpostgre;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,8 +49,23 @@ public class StudentController {
 
     //mapeamos a URL "/students" para o template studentList.html
     @GetMapping("/students")
-    public String getAllStudents(Model model, @RequestParam(value= "sort", defaultValue = "ra") String sort){
-        model.addAttribute("students", repository.findAll(Sort.by(sort)));
+    public String getAllStudents(
+            Model model, 
+            @RequestParam(value= "sort", defaultValue = "ra") String sort,
+            @RequestParam(value= "page", defaultValue = "1") int page
+        ){
+        int size = 3; //indica o total de resultados por pagina
+        long totalOfStudents = repository.count(); //total de estudantes na tabela
+        // totalOfPages : retorna o total de paginas que deve ser mostradas
+        double totalOfPages = Math.ceil((double)totalOfStudents / (double)size);
+
+        model.addAttribute("sort", sort);
+        model.addAttribute("page", page);
+        model.addAttribute("totalOfPages", totalOfPages);
+        model.addAttribute("totalOfStudents", totalOfStudents);
+        // o objeto pageable anota a paginação e a forma de sortir os resultados da tabela
+        Pageable pageAndSort = PageRequest.of(page-1, size, Sort.by(sort));
+        model.addAttribute("students", repository.findAll(pageAndSort));
         return "studentList";
     }
 
